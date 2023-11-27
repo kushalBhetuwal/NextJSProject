@@ -19,7 +19,9 @@ export const metadata: Metadata = {
   title: "DevOverFlow",
   description:
     "A community driven platform asking and answering programming questions and software collaboration with developers around the world exploring topics in web development",
-  icons: "/assets/images/site-logo.svg",
+  icons: {
+    icon:"/assets/images/site-logo.svg"
+  }
 };
 
 export default function RootLayout({
@@ -39,7 +41,9 @@ export default function RootLayout({
             },
           }}
         >
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            {children}
+            </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>
