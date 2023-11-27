@@ -12,12 +12,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState("");
 
   const handleThemeChange = () => {
-    if (mode === "dark") {
-      setMode("light");
-      document.body.classList.add("light");
-    } else {
+    if (localStorage.theme === "dark" 
+     || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme:dark)').matches)
+    ) {
       setMode("dark");
       document.body.classList.add("dark");
+    } else {
+      setMode("light");
+      document.body.classList.remove('dark');
     }
   };
   useEffect(() => {
