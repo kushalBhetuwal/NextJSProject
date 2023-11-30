@@ -55,4 +55,5 @@ export interface Question{
 export interface tag{
   id:number;
   name:string;
+  number:number;
 }

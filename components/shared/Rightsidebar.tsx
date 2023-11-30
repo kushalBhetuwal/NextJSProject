@@ -1,4 +1,4 @@
-import { questions, tags} from "@/constants";
+import { questions, tags } from "@/constants";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -32,17 +32,18 @@ const Rightsidebar = () => {
           })}
         </div>
       </div>
-      <div>
-        <h3 className="text-dark200_light900">Popular Tags</h3>
-        {
-        tags.map((tag)=>{
-            return(
-                <Link key={tag.id} href="/tags/{tag.id}" className="cursor-pointer">
-                    <RenderTag/>
-                </Link>
-            )
-        })
-        }
+      <div className="mt-16">
+        <h3 className="text-dark200_light900 h3-bold">Popular Tags</h3>
+        <div className="mt-7 flex flex-col gap-4">
+          {tags.map((tag) => (
+            <RenderTag
+              key={tag.id}
+              id={tag.id}
+              name={tag.name}
+              number={tag.number}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

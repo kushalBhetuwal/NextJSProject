@@ -102,22 +102,27 @@ export const questions: Question[] = [
 export const tags: tag[] =[
   {
       id:1,
-      name:"Next.js"
+      name:"Next.js",
+      number:23
   },
   {
       id:2,
-      name:"Javascript"
+      name:"Javascript",
+      number:15
   },
   {
       id:3,
-      name:"Node.js"
+      name:"Node.js",
+      number:32
   },
   {
       id:4,
-      name:"React.js"
+      name:"React.js",
+      number:2
   },
   {
       id:5,
-      name:"TailwindCss"
+      name:"TailwindCss",
+      number:3
   }
 ]
