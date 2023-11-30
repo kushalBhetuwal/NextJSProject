@@ -2,21 +2,30 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 
-const LocalSearchbar = () => {
+ interface customInputs{
+    placeholder:string;
+    route:string;
+    imgSrc:string;
+    width:number;
+    height:number;
+    otherClasses:string;
+}
+
+const LocalSearchbar = ({placeholder, imgSrc, width, height, otherClasses}:customInputs) => {
   return (
-    <div className="background-light800_darkgradient mt-8 flex gap-4 rounded-[10px] p-2">
+    <div className={`background-light800_darkgradient  flex gap-4 rounded-[10px] p-2 ${otherClasses}`}>
       <Image
-        src="/assets/icons/search.svg"
+        src={imgSrc}
         alt="searchlocal"
-        width={24}
-        height={24}
+        width={width}
+        height={height}
         className="cursor-pointer"
       />
       <Input
-        placeholder="Search for questions ...."
+        placeholder={placeholder}
         type="text"
         value=""
-        className="no-focus placeholder text-dark400_light700  border-none bg-transparent shadow-none outline-none"
+        className="no-focus placeholder background-light800_darkgradient  border-none bg-transparent shadow-none outline-none"
       />
     </div>
   );
