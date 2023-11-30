@@ -1,4 +1,4 @@
-import { SidebarLink } from "@/types";
+import { SidebarLink, Question, tag } from "@/types";
 
 export const themes = [
   { value: "light", label: "Light", icon: "/assets/icons/sun.svg" },
@@ -71,3 +71,58 @@ export const BADGE_CRITERIA = {
     GOLD: 100000,
   },
 };
+
+export const questions: Question[] = [
+  {
+    id: 1,
+    description:
+      "Best practice for data fetching in a next.js application with server side rendering",
+  },
+  {
+    id: 2,
+    description:
+      "React.js documentation is the best documentation in the world",
+  },
+  {
+    id: 3,
+    description: "Can i get the courses for free",
+  },
+  {
+    id: 4,
+    description: "is Redux dead?",
+  },
+  {
+    id: 5,
+    description: "Async/await function not handling errors properly",
+  },
+];
+
+
+
+export const tags: tag[] =[
+  {
+      id:1,
+      name:"Next.js",
+      number:23
+  },
+  {
+      id:2,
+      name:"Javascript",
+      number:15
+  },
+  {
+      id:3,
+      name:"Node.js",
+      number:32
+  },
+  {
+      id:4,
+      name:"React.js",
+      number:2
+  },
+  {
+      id:5,
+      name:"TailwindCss",
+      number:3
+  }
+]
