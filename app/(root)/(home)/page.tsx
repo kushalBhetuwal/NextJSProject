@@ -1,3 +1,4 @@
+import HomeFilters from "@/components/Home/HomeFilters";
 import Filter from "@/components/shared/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ export default function Home() {
         />
         <Filter filters={HomePageFilters} otherClasses="min-h-[56px] sm:min-w-[170px]" responsiveClass=" hidden max-md:flex" />
       </div>
+      <HomeFilters filters={HomePageFilters}/>
     </>
   );
 }
