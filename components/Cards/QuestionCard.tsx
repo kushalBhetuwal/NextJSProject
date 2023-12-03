@@ -29,7 +29,7 @@ const QuestionCard = ({
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
       <div className="flex">
-        <div className="line-clamp-1 flex flex-col max-sm:line-clamp-1">
+        <div className="text-dark400_light700 line-clamp-1 flex flex-col max-sm:line-clamp-1">
           {title}
           <Link href={`question/${id}`}></Link>
         </div>
@@ -40,7 +40,7 @@ const QuestionCard = ({
           <RenderTag key={tag.id} id={tag.id} name={tag.name} />
         ))}
       </div>
-      <div className="flex-between mt-6 w-full flex-wrap gap-3">
+      <div className="flex-between text-dark400_light700 mt-6 w-full flex-wrap gap-3">
         <Metric
           imgurl="/assets/images/avatar.png"
           alt="author"
