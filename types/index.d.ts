@@ -53,7 +53,8 @@ export interface Question{
 }
 
 export interface tag{
-  id:number;
+  id:string;
   name:string;
-  number:number;
+  number?:number;
+  otherClasses?:""
 }
