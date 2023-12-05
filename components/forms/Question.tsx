@@ -1,5 +1,6 @@
 "use client";
-
+import React, { useRef } from "react";
+import { Editor } from "@tinymce/tinymce-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -17,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/validation";
 
 const Question = () => {
+  const editorRef = useRef(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,7 +69,43 @@ const Question = () => {
                   <span className="text-primary-500">*</span>
                 </FormLabel>
                 <FormControl className="mt-3.5">
-                  {/* need to add textarea */}
+                  <Editor
+                    apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
+                    // @ts-ignore
+                    onInit={(evt, editor) => (editorRef.current = editor)}
+                    init={{
+                      height: 500,
+                      menubar: false,
+                      plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "codesample",
+                        "help",
+                        "wordcount",
+                      
+                      ],
+                      toolbar:
+                        "undo redo | blocks | " + "codesample" + "|" +
+                        "bold italic forecolor | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | help",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    }}
+                  />
                 </FormControl>
                 <FormDescription className="text-dark500_light500 body-regular mt-2.5 text-light-500">
                   Introduce the problem and expand on what you put in the title.
