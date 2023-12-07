@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/validation";
+import { Badge } from "../ui/badge";
+import Image from "next/image";
 
 const Question = () => {
   const editorRef = useRef(null);
@@ -30,6 +32,36 @@ const Question = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+  const handleInput = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    field: any,
+  ) => {
+    if (e.key === "Enter" && field.name === "tags") {
+      e.preventDefault();
+      const tagInput = e.target as HTMLInputElement;
+      const tagValue = tagInput.value.trim();
+      if (tagValue !== "") {
+        if (tagValue.length > 15) {
+          return form.setError("tags", {
+            type: "required",
+            message: "String must not be more than 15 characters",
+          });
+        }
+        if (!field.value.includes(tagValue as never)) {
+          form.setValue("tags", [...field.value, tagValue]);
+          tagInput.value = "";
+          form.clearErrors("tags");
+        }
+      } else {
+        form.trigger();
+      }
+    }
+  };
+
+  const handleClick = (tags: any, tag: string) => {
+    const newtags = tags.value.filter((t: string) => t !== tag);
+    form.setValue("tags", newtags);
+  };
   return (
     <div>
       <Form {...form}>
@@ -96,10 +128,11 @@ const Question = () => {
                         "codesample",
                         "help",
                         "wordcount",
-                      
                       ],
                       toolbar:
-                        "undo redo | blocks | " + "codesample" + "|" +
+                        "undo redo | blocks | " +
+                        "codesample" +
+                        "|" +
                         "bold italic forecolor | alignleft aligncenter " +
                         "alignright alignjustify | bullist numlist outdent indent | " +
                         "removeformat | help",
@@ -125,10 +158,34 @@ const Question = () => {
                   Tags <span className="text-primary-500">*</span>
                 </FormLabel>
                 <FormControl className="mt-3.5">
-                  <Input
-                    className=" no-focus background-light800_dark400   mt-4 rounded-lg"
-                    {...field}
-                  />
+                  <>
+                    <Input
+                      className=" no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                      onKeyDown={(e) => handleInput(e, field)}
+                    />
+                    {field.value.length > 0 && (
+                      <div className="flex gap-10">
+                        {field.value.map((tag: string) => {
+                          return (
+                            <Badge
+                              key={tag}
+                              className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center gap-2 rounded-md border-none px-4 py-2 capitalize"
+                            >
+                              {tag}
+                              <Image
+                                src="/assets/icons/close.svg"
+                                alt="animal"
+                                height={20}
+                                width={20}
+                                className="cursor-pointer object-contain invert-0 dark:invert"
+                                onClick={() => handleClick(field, tag)}
+                              />
+                            </Badge>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </>
                 </FormControl>
                 <FormDescription className="text-dark500_light500 body-regular mt-2.5 text-light-500">
                   Add up to 5 tags to describe what your question is about.
