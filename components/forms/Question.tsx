@@ -73,6 +73,7 @@ const Question = () => {
                     apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
                     // @ts-ignore
                     onInit={(evt, editor) => (editorRef.current = editor)}
+                    initialValue="something"
                     init={{
                       height: 500,
                       menubar: false,
