@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,6 +21,8 @@ import Image from "next/image";
 
 const Question = () => {
   const editorRef = useRef(null);
+  const[isSubmitting, setIsSubmitting] = useState(false);
+  const type = 'edit';
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,6 +32,13 @@ const Question = () => {
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
+     setIsSubmitting(true);
+   try{
+  //  make an async api call,
+  // collect the form data 
+   }catch(error){
+     console.log(error);
+   }
     console.log(values);
   }
   const handleInput = (
@@ -199,9 +208,21 @@ const Question = () => {
           <div className="flex justify-end">
             <Button
               type="submit"
+              disabled={isSubmitting}
               className=" paragraph-medium primary-gradient  w-[173px]   gap-[10px] rounded-[8px] px-3 py-4 text-center text-light-900 "
             >
               Ask a Question
+              {
+                isSubmitting ?(
+                  <>
+                  {type==='edit'? "Editing...":"Posting"}
+                  </>
+                ):(
+                  <>
+                   {type==='edit'? "Editing a Question": "ask a question"}
+                  </>
+                )
+              }
             </Button>
           </div>
         </form>
