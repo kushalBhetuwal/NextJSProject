@@ -21,8 +21,8 @@ import Image from "next/image";
 
 const Question = () => {
   const editorRef = useRef(null);
-  const[isSubmitting, setIsSubmitting] = useState(false);
-  const type = 'edit';
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const type = "edit";
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,13 +32,13 @@ const Question = () => {
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
-     setIsSubmitting(true);
-   try{
-  //  make an async api call,
-  // collect the form data 
-   }catch(error){
-     console.log(error);
-   }
+    setIsSubmitting(true);
+    try {
+      //  make an async api call,
+      // collect the form data
+    } catch (error) {
+      console.log(error);
+    }
     console.log(values);
   }
   const handleInput = (
@@ -114,6 +114,8 @@ const Question = () => {
                     apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
                     // @ts-ignore
                     onInit={(evt, editor) => (editorRef.current = editor)}
+                    onBlur = {field.onBlur}
+                    onEditorChange={(content)=>field.onChange(content)}
                     initialValue="something"
                     init={{
                       height: 500,
@@ -211,18 +213,11 @@ const Question = () => {
               disabled={isSubmitting}
               className=" paragraph-medium primary-gradient  w-[173px]   gap-[10px] rounded-[8px] px-3 py-4 text-center text-light-900 "
             >
-              Ask a Question
-              {
-                isSubmitting ?(
-                  <>
-                  {type==='edit'? "Editing...":"Posting"}
-                  </>
-                ):(
-                  <>
-                   {type==='edit'? "Editing a Question": "ask a question"}
-                  </>
-                )
-              }
+              {isSubmitting ? (
+                <>{type === "edit" ? "Editing..." : "Posting"}</>
+              ) : (
+                <>{type === "edit" ? "Editing a Question" : "Ask a question"}</>
+              )}
             </Button>
           </div>
         </form>
