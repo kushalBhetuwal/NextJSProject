@@ -18,11 +18,12 @@ import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/validation";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const Question = () => {
   const editorRef = useRef(null);
-  const[isSubmitting, setIsSubmitting] = useState(false);
-  const type = 'edit';
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const type:any = 'create';
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,14 +32,16 @@ const Question = () => {
       tags: [],
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-     setIsSubmitting(true);
-   try{
-  //  make an async api call,
-  // collect the form data 
-   }catch(error){
-     console.log(error);
-   }
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    try {
+      await createQuestion({});
+    } catch (error) {
+      console.log(error);
+    }
+    finally{
+      setIsSubmitting(false);
+    }
     console.log(values);
   }
   const handleInput = (
@@ -114,7 +117,9 @@ const Question = () => {
                     apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
                     // @ts-ignore
                     onInit={(evt, editor) => (editorRef.current = editor)}
-                    initialValue="something"
+                    onBlur = {field.onBlur}
+                    onEditorChange={(content)=>field.onChange(content)}
+                    initialValue=""
                     init={{
                       height: 500,
                       menubar: false,
@@ -206,24 +211,17 @@ const Question = () => {
           />
 
           <div className="flex justify-end">
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className=" paragraph-medium primary-gradient  w-[173px]   gap-[10px] rounded-[8px] px-3 py-4 text-center text-light-900 "
-            >
-              Ask a Question
-              {
-                isSubmitting ?(
-                  <>
-                  {type==='edit'? "Editing...":"Posting"}
-                  </>
-                ):(
-                  <>
-                   {type==='edit'? "Editing a Question": "ask a question"}
-                  </>
-                )
-              }
-            </Button>
+          <Button type="submit" className="primary-gradient w-fit !text-light-900" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              {type === 'Edit' ? 'Editing...' : 'Posting...' }
+            </>
+          ) : (
+            <>
+              {type === 'Edit' ? 'Edit Question' : 'Ask a Question'}
+            </>
+          )}
+        </Button>
           </div>
         </form>
       </Form>
